@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/register.css') }}"/>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2 id="form-title">注册/Register</h2>
+            </div>
+        <div id="registerBox">
+        <!-- 注册表单 -->
+        <form action="{{ url_for('auth.register') }}" method="POST">
+            <div class="mb-3">
+                <label for="register-username" class="form-label">用户名</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="register-email" class="form-label">邮箱</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="register-password" class="form-label">密码</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="register-confirm" class="form-label">确认密码</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                <div class="error-message" id="password-match-error"></div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">注册</button>
+            <div class="toggle-btn" onclick="toggleForms()">
+                已有账号？点击此处登录
+            </div>
+        </form>
+        </div>
+    </div>
+    {% if status == 'fail' %}
+    <script>
+        alert('账号或密码重复，请重新填写')
+    </script>
+    {% endif %}
+</body>
+<script>
+    var loginUrl = "{{ url_for('auth.login') }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/bootstrap_bundle_min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+</html>

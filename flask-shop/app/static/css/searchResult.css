@@ -1,0 +1,106 @@
+/* 搜索容器 */
+.search-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  
+  /* 搜索表单 */
+  .search-form {
+    width: 100%;
+  }
+  
+  /* 输入框组 */
+  .search-input-group {
+    position: relative;
+    display: flex;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input-group:focus-within {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* 搜索输入框 */
+  .search-input {
+    flex: 1;
+    padding: 18px 25px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #333333;
+  }
+  
+  .search-input::placeholder {
+    color: #999;
+    font-weight: 300;
+  }
+  
+  /* 搜索按钮 */
+  .search-button {
+    width: 70px;
+    background: #007bff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .search-button:hover {
+    background: #0055ffea;
+  }
+  
+  .search-icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+  
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .search-input {
+      padding: 15px 20px;
+      font-size: 16px;
+    }
+    
+    .search-button {
+      width: 60px;
+    }
+  }
+
+  .arrow-button {
+    display: inline-block;
+    padding: 10px 15px 10px 25px;
+    background-color: #d14949;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .arrow-button:hover {
+    background-color: #c24f4f;
+    transform: translateX(-5px);
+  }
+  
+  .arrow-button::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid #333;
+    border-bottom: 2px solid #333;
+    transform: translateY(-50%) rotate(45deg);
+  }

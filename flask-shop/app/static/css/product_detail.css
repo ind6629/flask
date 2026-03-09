@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.main-image-container {
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+.main-image {
+    width: 270px;
+    height: 270px;
+    object-fit: contain; /* 等比缩放完整显示图片 */
+    background: #f5f5f5; /* 留白部分填充背景色 */
+}
+.thumbnail-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+.thumbnail:hover {
+    border-color: #3498db;
+    opacity: 0.8;
+}
+.thumbnail.active {
+    border-color: #e74c3c;
+}
+
+.main_box {
+    display: flex;
+}
+
+.left_box {
+    margin-right: 70px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 按钮和输入框之间的间距 */
+  }
+  
+  .add-to-cart-number {
+    width: 50px; /* 输入框宽度 */
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -moz-appearance: textfield;
+  }
+  
+  .quantity-minus, .quantity-plus {
+    width: 30px;
+    height: 30px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .quantity-minus:hover, .quantity-plus:hover {
+    background: #e0e0e0;
+  }
+
+.cart-button {
+    margin-top: 20px;
+    /* 基础样式 */
+    padding: 10px 20px; /* 内边距（上下 10px，左右 20px） */
+    color: white; /* 白色文字 */
+    border: none; /* 去掉默认边框 */
+    border-radius: 25px; /* 圆角（数值越大越圆） */
+    font-size: 16px; /* 字体大小 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s; /* 悬停动画效果 */
+  
+    /* 可选：添加阴影增强立体感 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 鼠标悬停效果 */
+.cart-button:hover {
+    background-color: #2980b9; /* 悬停时变深蓝色 */
+  }
+  
+  /* 点击时效果 */
+.cart-button:active {
+    transform: translateY(1px); /* 轻微下沉效果 */
+  }
+
+#submitBtn {
+    background-color: green; 
+}
+#backbtn {
+    background-color: rgb(234, 210, 75); 
+}
+
+.star-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: #666;
+}
+
+.star-btn:hover {
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+.star-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  fill: currentColor;
+  transition: all 0.3s ease;
+}
+
+.star-btn.collected {
+  color: #ffc107;
+  border-color: #ffc107;
+}
+
+.star-btn.collected .star-icon {
+  fill: #ffc107;
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+#addOrder {
+  background-color: #dd4237;
+}
+
+.add-to-cart-number::-webkit-outer-spin-button,
+.add-to-cart-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

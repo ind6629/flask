@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-container {
+  max-width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.auth-header {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.auth-form {
+  padding: 30px;
+  transition: all 0.3s;
+}
+
+.captcha-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.toggle-btn {
+  color: #6e8efb;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+}
+.error-message {
+  color: #dc3545;
+  font-size: 0.9em;
+  height: 18px;
+}
+
+#registerBox {
+  padding: 33px;
+}

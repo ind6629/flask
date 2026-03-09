@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>我的收藏</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/collection.css') }}"/>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    </head>
+    <body>
+      <a href="/" class="arrow-button">返回</a>
+        <div class="collection-container">
+          <h1 class="collection-title">我的收藏</h1>
+          {% if collections %}
+          <div class="collection-grid">
+            {% for item in collections %}
+            <div class="collection-item" data-product-id="{{ item.product.id }}">
+              <div class="item-image-container">
+                <img src="{{ item.product.image }}" alt="{{ item.product.name }}" class="item-image">
+                <button class="remove-collection-btn" title="取消收藏">
+                  <i class="fas fa-heart"></i>
+                </button>
+              </div>
+              
+              <div class="item-info">
+                <h3 class="item-name">{{ item.product.name }}</h3>
+                <div class="item-price-stock">
+                  <span class="item-price">¥{{ "%.2f"|format(item.product.price) }}</span>
+                  <span class="item-stock {% if item.product.stock <= 0 %}out-of-stock{% endif %}">
+                    {% if item.product.stock > 0 %}
+                      库存: {{ item.product.stock }}件
+                    {% else %}
+                      已售罄
+                    {% endif %}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="item-actions">
+                <button class="add-to-cart-btn" {% if item.product.stock <= 0 %}disabled{% endif %}>
+                  加入购物车
+                </button>
+                <a href="{{ url_for('main.product_detail', id=item.product.id) }}" class="view-detail-btn">
+                  查看详情
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="empty-collection">
+            <img src="{{ url_for('static', filename='images/empty-collection.png') }}" alt="空收藏">
+            <p>您还没有收藏任何商品</p>
+          </div>
+          {% endif %}
+        </div>
+        <div class="cartBox">
+          <button class="animated-arrow-btn" onclick="enterCart">
+            <span>前往购物车</span>
+            <div class="arrow">
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </div>
+    </body>
+
+    <script src="{{ url_for('static', filename='js/collection.js') }}"></script> 
+
+    <script>
+        removeCollectionUrl = "{{ url_for('collect.remove') }}"
+    </script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/cart.css') }}"/>
+</head>
+<body>
+    <div class="header">
+        <h1>淘好货</h1>
+        <p>品质生活，从这里开始</p>
+        <img src="//img.yimutian.com/crm/60580c952d211f7102aa1d3005670046.png" class="header_img" data-v-0535af0c="">
+        </div>
+    </div>
+    <div class="nav">
+        <a href="{{ url_for('main.index') }}">浏览商品主页</a>
+        <a href="{{ url_for('main.add_product') }}">添加商品</a>
+    </div>
+    
+    <h1>购物车</h1>
+    <ul>
+        <!-- 购物车列表 -->
+        {% for item in cart_items %}
+        <li>
+            {{ item.product.name }} - ${{ item.product.price }} x {{ item.quantity }}
+            <form method="POST" action="{{ url_for('buy.remove_from_cart', cart_id=item.id) }}" style="display:inline;">
+                <button type="submit">Remove</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('main.checkout') }}">
+        <button type="submit">购买</button>
+    </form>
+</body>
+</html>

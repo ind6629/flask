@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add-to-car.css') }}"/>
+</head>
+<body>
+    <div class="main_box">
+        <div class="left_box">
+            <div class="main-image-container">
+                <img id="mainImage" class="main-image" 
+                src="{{ product.image }}" alt="{{ product.name }}">
+            </div>
+            <div class="thumbnail-container">
+                <!-- 缩略图列表 -->
+                <img class="thumbnail active" 
+                     src="{{ product.image }}" 
+                     onclick="changeImage(this, '{{ product.image }}')">
+                     
+                <img class="thumbnail" 
+                     src="https://via.placeholder.com/800x500?text=主图2" 
+                     onclick="changeImage(this, 'https://via.placeholder.com/800x500?text=主图2')">
+                     
+                <img class="thumbnail" 
+                     src="https://via.placeholder.com/800x500?text=主图3" 
+                     onclick="changeImage(this, 'https://via.placeholder.com/800x500?text=主图3')">
+                     
+                <img class="thumbnail" 
+                     src="https://via.placeholder.com/800x500?text=主图4" 
+                     onclick="changeImage(this, 'https://via.placeholder.com/800x500?text=主图4')">
+            </div>
+        </div>
+        <div class="right_box">
+            <h1>{{ product.name }}</h1>
+            <div class="product-description" data-product_id="{{product.id}}" data-product_price="{{product.price}}">
+            <p>商品描述：</p><div class="description">{{ product.description }}</div>
+            </div>
+            <div class="product-price">
+            <p>价格：${{ product.price }}</p>
+            </div>
+            <div class="product-stock">
+            <p>库存：{{ product.stock }}</p>
+            </div>
+            <form method="POST" action="{{ url_for('buy.add_to_cart', product_id=product.id) }}" class="add-to-cart">
+                <label for="quantity" class="add-to-cart-quantity">数量:</label>
+                <input type="button" class="quantity-minus" value="-">
+                <input type="number" name="quantity" class="add-to-cart-number" id="quantity-input" min="1" max="{{ product.stock }}" value="1" required>
+                <input type="button" class="quantity-plus" value="+"><br>
+                <button type="button" class="cart-button" id="addOrder">立即购买</button>
+                <input type="submit" class="cart-button" value="添加到购物车" id="submitBtn" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                <a href="{{ url_for('main.collect',user_id=user_id, product_id=product.id,is_collected=is_collected) }}" id="collect-btn" class="star-btn {% if is_collected %}collected{% endif %}">
+                    <svg class="star-icon" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <span class="star-text">
+                    {% if is_collected %}已收藏{% else %}收藏{% endif %}
+                    </span>
+                </a>
+            </form>
+
+        </div>
+    </div>
+    <div id="message"></div>
+    <button class="cart-button" id="backbtn" onclick="returnHome()">退出详情页</button>
+    <hr>
+    <div class="comments">
+        <h2>用户评论</h2>
+        <form method="POST" action="{{ url_for('comments.add_comment', product_id=product.id) }}">
+            <label for="rating">评分:</label>
+            <select id="rating" name="rating" required>
+                <option value="1">1星</option>
+                <option value="2">2星</option>
+                <option value="3">3星</option>
+                <option value="4">4星</option>
+                <option value="5">5星</option>
+            </select>
+            <label for="comment" class="comments-text">发表评论:</label>
+            <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
+            <button type="submit">提交评论</button>
+        </form>
+
+        <h3>已有评论</h3>
+        {% if current_user.is_authenticated %}
+        {% for comment in product.comments %}
+            <div class="comment">
+                <p><strong>{{ comment.user.username }}</strong> ({{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}):</p>
+                <p>{{ comment.content }}</p>
+                <p>评分: {{ comment.rating }} 星</p>
+            </div>
+        {% endfor %}
+        {% else %}
+        <p>请先登录以查看评论。</p>
+        {% endif %}
+    </div>
+    
+</div>
+<script>
+    orderUrl = "{{ url_for('main.addOrder')}}"
+</script>
+<script src="{{ url_for('static', filename='js/product_detail.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cart_tracking.js') }}"></script>
+</body>
+</html>

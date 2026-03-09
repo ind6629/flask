@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+</head>
+<body>
+    <div class="product-detail">
+
+        <div class="product-images">
+            <img src="{{ product.image }}" alt="{{ product.name }}">
+        </div>
+
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p>商品描述：{{ product.description }}</p>
+            <p>价格： ${{ product.price }}</p>
+            <p>库存：{{ product.stock }}</p>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>精耕系作</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nongxiaoling.css') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="table">
+        <div class="title">
+            <img src="/school.jpg"  class="title-logo" alt="Program Logo">
+            <h2>哈信息-软件学院</h2>
+        </div>
+        <div class="ai-name">
+            <h3>农小灵</h3>
+            <p>农业垂直领域大模型应用</p>
+            <div class="ai-members">
+                <p>学校学院：哈信息-软件学院</p>
+                <p>合作单位：宝清县农业公司</p>
+                <p>项目负责人：李伟光</p>
+                <p>学生参与人：于骏飏、吴梦雨、邓丽霞、郭晋豪、柴靖波、...</p>
+            </div>
+        </div>
+        <div class="member">
+           
+        </div>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="left-side">
+                <!-- 左侧部分 -->
+                <!-- 顶端 导航栏 -->
+                <header class="header">
+                    <div class="info">
+                        <img src="image/logo.jpg" alt="Program Logo" class="logo">
+                        <h2 class="name">
+                            <span style="color:rgb(127, 186, 87);font-size: 40px;">农</span> <span style="color:rgb(127, 186, 87);font-size: 40px;">小</span><span style="color:rgb(127, 186, 87);font-size: 40px;">灵</span>
+                        </h2>
+                        <!-- <div id="time-display" class="time"></div> -->
+                    </div>
+                    <!-- <i class="fas fa-cog settings-button" onclick="toggleSettings()"></i> -->
+                </header>
+                <!-- 中间空白区域 -->
+                <div class="middle">
+                    <button class="new-chat-button" onclick="location.reload()">场景应用</button>
+                    <!-- <button class="history-chat-button" onclick="location.reload()">历史对话</button> -->
+                    <div class="image-slider">
+                        <img src="image/inage1.png" alt="Image 1">
+                        <img src="image/inage2.png" alt="Image 2">
+                        <img src="image/inage3.png" alt="Image 3">
+                    </div>
+                </div>
+                <!-- 底部区域 -->
+                <div class="bottom">
+                    <button onclick="navigateToUserChat()">用户交流</button>
+                    <button onclick="navigateToCropStatus()">农作物状态</button>
+                    <button onclick="navigateToUserCenter()">用户中心</button>
+                    <button onclick="navigateToHelp()">帮助</button>
+                </div>
+            </td>
+            <td class="right-side">
+                <!-- 右侧部分 -->
+                <!-- 设置面板 -->
+                <div id="settings-popup" class="settings-popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="toggleSettings()">&times;</span>
+                        <!-- 设置内容 -->
+                        <p>这里是设置内容</p>
+                    </div>
+                </div>
+                <!-- 对话区域 -->
+                <div class="chat-area">
+                    <div id="chatbox">
+                        <iframe src="http://localhost:8501" width="100%" height="600px" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <h4 class="footer-sc">农小灵</h4>
+                </footer>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>

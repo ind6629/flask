@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <h1>Content Details</h1>
+    <!-- 新闻信息 -->
+    {% for item in page_items %}
+        <div>
+            <h2>{{ item.title }}</h2>
+            <img src="{{ item.image }}">
+            <p>{{ item.content }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

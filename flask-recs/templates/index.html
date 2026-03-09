@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="header">
+    <a href = 'https://img11.360buyimg.com/jdcms/s240x240_jfs/t1/220956/40/44305/65841/667bd339F7677d1a8/ffccfa21c244b4f1.jpg.avif'>百度</a>
+    <a href="{{ url_for('help') }}">帮助页面</a>
+    <a href="{{ url_for('add_product') }}">添加商品</a>
+    <p class="k">123</p>
+    <p class="l">456</p>
+    </div>
+
+
+    <div class="middle">
+    <form action="{{ url_for('search_product') }}" method="POST" class="search-container">
+        <input type="text" id="search" name="search" class="search-text" required>
+        <button type="submit" class="search-button">搜索</button>
+    </form>
+    </div>
+
+
+        <div class="container">
+            <h2>商品列表</h2>
+            <div class="product-list">
+                {% for product in products %}
+                <div class="product-item">
+                    <div>
+                    <a href="{{ url_for('productDetail', id=product.id) }}">
+                    </div>
+                        <img src="{{ product.image }}" alt="{{ product.name }}">
+                        <h3>{{ product.name }}</h3>
+                    </a>
+                        <p class="price">${{ product.price }}</p>
+                        <p class="stock">库存: {{ product.stock }}</p>
+                        <p>{{product.id}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- shift + 1 -->

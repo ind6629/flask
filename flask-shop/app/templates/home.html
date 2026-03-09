@@ -1,0 +1,368 @@
+<!-- app/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绸缎刻</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+</head>
+<body>
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    {% if Carts %}
+      <h2>您的购物车：</h2>
+      <ul class="rank-list">
+      {% set total = namespace(value=0) %}
+      {% for Cart in Carts%}
+        <li class="rank-item">
+            <span class="rank-num">{{ loop.index }}</span>
+            <span class="rank-name">{{Cart.product.name}}</span>
+            <span class="rank-name">×{{Cart.quantity}}</span>
+            <span class="rank-price">总价：{{Cart.quantity * Cart.product.price}}</span>
+            {% set total.value = total.value + Cart.quantity * Cart.product.price %}
+        </li>
+      {% endfor %}
+      </ul>
+      <div id="cartItems"></div>
+      <div class="cart-total">
+        <p>合计为: 
+          <span id="totalPrice">{{total.value}}</span>元
+        </p>
+      </div>
+      <div class="confirmBox">
+        <button class="confirm-button" id="confirm" onclick="checkout()">结算</button>
+      </div>
+
+      
+    {% else %}
+      <h2>购物车中空空如也</h2>
+      <button class="confirm-button" id="cancel">返回</button>
+    {% endif %}
+    
+  </div>
+</div>
+    <div class="top-navigation">
+        <button class="button-brand" onclick="refresh()">绸缎刻</button>
+        <button class="button-normal" id="cartButton">购物车</button>
+        <button class="button-normal" onclick="order()">订单中心</button>
+        <button class="button-normal" onclick="collection()">我的收藏</button>
+        <button class="button-normal" onclick="help()">帮助中心</button>
+        <button class="button-normal" onclick="analysis()">数据分析</button>
+        <div class="search-box">
+            <div>
+              <input type="text" placeholder="热卖商品..." class="search-input" id="searchInput" name="keyWord" value="">
+              <input type="button" class="search-button" value ="🔍" onclick="search()">
+            </div>
+        </div>
+        {% if current_user.is_authenticated %}
+        <button class="button-login" onclick="user_profile()">{{ current_user.username }}</button>
+        {% else %}
+        <button class="button-login" onclick="login()">登录</button>
+        {% endif %}
+    </div>
+    <div class="promote-block">
+        <div class="left-card">
+            <h3>🔥 热销TOP5</h3>
+            <ul class="rank-list">
+                <li class="rank-item">
+                    <span class="rank-num">1</span>
+                    <span class="rank-name">工装连衣裙</span>
+                    <span class="rank-price">¥123</span>
+                <li class="rank-item">
+                    <span class="rank-num">2</span>
+                    <span class="rank-name">镂空设计打底短袖</span>
+                    <span class="rank-price">¥116</span>
+                <li class="rank-item">
+                    <span class="rank-num">3</span>
+                    <span class="rank-name">纯银蝴蝶项链</span>
+                    <span class="rank-price">¥45.3</span>
+                <li class="rank-item">
+                    <span class="rank-num">4</span>
+                    <span class="rank-name">原创碎花裙</span>
+                    <span class="rank-price">¥249</span>
+                <li class="rank-item">
+                    <span class="rank-num">5</span>
+                    <span class="rank-name">国潮醒狮短袖t恤</span>
+                    <span class="rank-price">¥124</span>
+            </li>
+        </div>
+        <div class="carousel">
+            <div class="carousel-container">
+                <!-- 实际最后一张的克隆（视觉上放在最前面） -->
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=4" alt="图片4">
+                </div>
+                <!-- 原始图片 -->
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=1" alt="图片1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=2" alt="图片2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=3" alt="图片3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=4" alt="图片4">
+                </div>
+                <!-- 实际第一张的克隆（视觉上放在最后面） -->
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/500?random=1" alt="图片1">
+                </div>
+            </div>
+            
+            <button class="carousel-btn" id="prevBtn">❮</button>
+            <button class="carousel-btn" id="nextBtn">❯</button>
+            
+            <div class="carousel-indicators">
+                <div class="indicator active"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+            </div>
+        </div>
+        <div class="right-card">
+            <div class="flip-container">
+                <div class="flip-front">
+                    <img src="https://img.alicdn.com/imgextra/i2/2210978036336/O1CN01PQK1Ua1wfwVwFsA4E_!!2210978036336.jpg_.webp" alt="产品图片">
+                </div>
+                <div class="flip-back">
+                    <div class="flip-content">
+                        <h3>产品详情</h3>
+                        <p>蓝桉遇鸟999纯银项链</p>
+                        <p>价格: ¥142</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-container">
+        <!-- 标签导航 -->
+        <h2 style="margin-left: 15px;">热销商品</h2> 
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="tab1">流行女装</button>
+          <button class="tab-btn" data-tab="tab2">流行男装</button>
+          <button class="tab-btn" data-tab="tab3">服饰首饰</button>
+          <button class="tab-btn" data-tab="tab4">钟表专区</button>
+          <button class="tab-btn" data-tab="tab5" id='like'>猜你喜欢</button>
+        </div>
+        <!-- 内容区域 -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+            {% if phones %}
+            {% for product in phones %}
+            <div class="product-item">
+                  <a href="{{ url_for('main.product_detail', id=product.id) }}" class="product-link recomend" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="stock">库存: {{ product.stock }}</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="tab-pane" id="tab2">
+            {% if computers %}
+            {% for product in computers %}
+            <div class="product-item">
+                <a href="{{ url_for('main.product_detail', id=product.id) }}" class="product-link recomend" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="stock">库存: {{ product.stock }}</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="tab-pane" id="tab3">
+            {% if appliances %}
+            {% for product in appliances %}
+            <div class="product-item">
+                <a href="{{ url_for('main.product_detail', id=product.id) }}" class="product-link recomend" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="stock">库存: {{ product.stock }}</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="tab-pane" id="tab4">
+            {% if components %}
+            {% for product in components %}
+            <div class="product-item">
+                <a href="{{ url_for('main.product_detail', id=product.id) }}" class="product-link recomend" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="stock">库存: {{ product.stock }}</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="tab-pane" id="tab5">
+            {% for track in track_data %}
+            <div class="recomend-item">
+                <img src="{{ track.image }}" alt="{{ track.name }}">
+                <h3>{{ track.name }}</h3>
+                <p class="price">${{ track.price }}</p>
+                <p class="stock">库存: {{ track.stock }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+
+    <div class="news-column">
+        <footer class="footer-news">
+            <div class="news-container">
+              <h3 class="news-title">最新动态</h3>
+              
+              <div class="news-grid">
+
+                <!--<div>
+                  <article class="news-card">
+                    <time class="news-date">2023-11-15</time>
+                    <h4 class="news-headline">
+                      <a href="#">公司发布新一代智能产品系列</a>
+                    </h4>
+                    <p class="news-excerpt">全新产品线融合AI技术，提升用户体验...</p>
+                  </article>
+                  
+                  <article class="news-card">
+                    <time class="news-date">2023-11-10</time>
+                    <h4 class="news-headline">
+                      <a href="#">荣获2023年度科技创新大奖</a>
+                    </h4>
+                    <p class="news-excerpt">连续三年获得行业权威认可...</p>
+                  </article>
+                </div>-->
+
+{% for i in range(0, news|length, 1) %}
+<div class="news-row">
+  <div>
+    <article class="news-card">
+      <time class="news-date">{{news[i].date}}</time>
+      <h4 class="news-headline">
+        <a href="#">{{news[i].headline}}</a>
+      </h4>
+      <p class="news-excerpt">{{news[i].excerpt}}</p>
+    </article>
+  </div>
+  {% endfor %}      
+              
+                
+              </div>
+              
+              <div class="news-footer">
+                <a href="#" class="news-more">查看更多新闻 →</a>
+                <div class="news-subscribe">
+                  <input type="email" placeholder="输入邮箱订阅资讯">
+                  <button>订阅</button>
+                </div>
+              </div>
+            </div>
+          </footer>
+    </div>
+
+    <div class="inf-web">
+        <footer class="site-footer">
+            <div class="footer-container">
+              <!-- 第一行：主要信息 -->
+              <div class="footer-main">
+                <!-- 公司信息 -->
+                <div class="footer-col">
+                  <h4 class="footer-title">科技电子</h4>
+                  <p class="footer-about">致力于提供最前沿的电子产品与解决方案</p>
+                  <div class="footer-contact">
+                    <p><i class="icon icon-phone"></i> 400-888-8888</p>
+                    <p><i class="icon icon-email"></i> info@tech-electronics.com</p>
+                  </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div class="footer-col">
+                  <h4 class="footer-title">快速链接</h4>
+                  <ul class="footer-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/products">产品中心</a></li>
+                    <li><a href="/solutions">解决方案</a></li>
+                    <li><a href="/support">技术支持</a></li>
+                  </ul>
+                </div>
+                
+                <!-- 服务支持 -->
+                <div class="footer-col">
+                  <h4 class="footer-title">服务支持</h4>
+                  <ul class="footer-links">
+                    <li><a href="/warranty">保修政策</a></li>
+                    <li><a href="/faq">常见问题</a></li>
+                    <li><a href="/downloads">驱动下载</a></li>
+                    <li><a href="/contact">联系我们</a></li>
+                  </ul>
+                </div>
+                
+                <!-- 社交媒体 -->
+                <div class="footer-col">
+                  <h4 class="footer-title">关注我们</h4>
+                  <div class="social-links">
+                    <a href="#"><i class="icon icon-wechat"></i></a>
+                    <a href="#"><i class="icon icon-weibo"></i></a>
+                    <a href="#"><i class="icon icon-douyin"></i></a>
+                    <a href="#"><i class="icon icon-bilibili"></i></a>
+                  </div>
+                  <div class="qr-code">
+                    <img src="qrcode-wechat.png" alt="微信公众号">
+                    <p>扫码关注公众号</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 第二行：版权信息 -->
+              <div class="footer-bottom">
+                <div class="copyright">
+                  © 2023 科技电子有限公司 版权所有
+                  <span class="divider">|</span>
+                  <a href="/privacy">隐私政策</a>
+                  <span class="divider">|</span>
+                  <a href="/terms">服务条款</a>
+                  <span class="divider">|</span>
+                  <a href="/sitemap">网站地图</a>
+                </div>
+                <div class="certification">
+                  <img src="icp-logo.png" alt="ICP备案">
+                  <span>京ICP备12345678号</span>
+                  <img src="security-logo.png" alt="安全认证">
+                </div>
+              </div>
+            </div>
+          </footer>
+    </div>
+
+
+<script>
+    var userProfileUrl ="{{ url_for('auth.user_profile') }}";
+    var logoutUrl = 'auth.logout';
+    var loginUrl = "{{ url_for('auth.login') }}";
+    var category = "{{ url_for('main.category') }}";
+    var checkoutUrl = "{{ url_for('main.checkout') }}"
+    var helpUrl = "{{ url_for('main.help') }}"
+    var orderUrl = "{{ url_for('order.load') }}"
+    var collectUrl = "{{ url_for('collect.load') }}"
+    var analysisUrl = "{{ url_for('analysis.init') }}"
+</script>
+
+
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recomend.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tracking.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/tempTataJS.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script> 
+</body>
+</html>

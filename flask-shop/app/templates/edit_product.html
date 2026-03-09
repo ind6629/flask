@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/edit_product.css') }}"/>
+</head>
+<body>
+    <div class="header">
+        <h1>淘好货</h1>
+        <img src="//img.yimutian.com/crm/60580c952d211f7102aa1d3005670046.png" class="header_img" data-v-0535af0c="">
+        <form action="/search_product" method="POST" class="search-container">
+            <label for="search"></label>
+          <div class="search-box">
+            <input type="text" id="search" name="search" class="search-text" required>
+            <button type="submit" class="search-button">搜索</button>
+          </div>
+          <div class="search-suggest">
+            <a href="#home" data-id="searchSuggest1">苹果</a>
+            <a href="#home" data-id="searchSuggest3">禽畜牧蛋肉</a>
+            <a href="#home" data-id="searchSuggest4">食肉菌</a>
+            <a href="#home" data-id="searchSuggest5">绿化苗木</a>
+            <a href="#home" data-id="searchSuggest6">食品添加剂</a>
+            <a href="#home" data-id="searchSuggest6">酒水饮品</a>
+            <a href="#home" data-id="searchSuggest6">物流运输</a>
+            <a href="#home" data-id="searchSuggest6">病虫害防治</a>
+            <a href="#home" data-id="searchSuggest6">农业营销服务</a>
+          </div>
+        </form>
+    </div>
+    
+    <div class="nav">
+        <a href="{{ url_for('main.index') }}">浏览商品主页</a>
+        <a href="{{ url_for('main.add_product') }}">添加商品</a>
+    </div>
+    
+    <h1>修改商品</h1>
+    <form method="POST" action="{{ url_for('main.edit_product', product_id=product.id) }}">
+        <div>
+            <label for="name">商品名称:</label>
+            <input type="text" id="name" name="name" value="{{ product.name }}" required>
+        </div>
+        <div>
+            <label for="price">商品价格:</label>
+            <input type="number" step="0.01" id="price" name="price" value="{{ product.price }}" required>
+        </div>
+        <div>
+            <label for="image">图片:</label>
+            <input type="text" id="image" name="image" value="{{ product.image }}" required>
+        </div>
+        <div>
+            <label for="stock">库存:</label>
+            <input type="number" id="stock" name="stock" value="{{ product.stock }}" required>
+        </div>
+        <div>
+            <label for="description">描述:</label>
+            <textarea id="description" name="description" required>{{ product.description }}</textarea>
+        </div>
+        <button type="submit">修改商品</button>
+        <button type="submit" formaction="{{ url_for('main.delete_product', product_id=product.id) }}">删除商品</button>
+    </form>
+    
+</body>
+</html>

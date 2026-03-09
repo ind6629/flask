@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+<body>
+    <main>
+        <h1>关于我们</h1>
+        <section id="company-overview">
+            <h2>公司简介</h2>
+            <p>欢迎来到我们的商城网站！我们成立于2010年，致力于为用户提供高质量的产品和优质的服务。我们的目标是成为您购物的最佳选择，无论您是在寻找日常用品还是特殊礼品，我们都能满足您的需求。</p>
+            <p>我们的团队由一群充满激情和经验丰富的专业人士组成，他们不断努力创新，以确保我们的产品和服务始终处于行业领先地位。</p>
+        </section>
+
+        <section id="vision-mission">
+            <h2>愿景与使命</h2>
+            <p><strong>愿景：</strong>成为全球领先的电子商务平台，为用户提供无缝的购物体验。</p>
+            <p><strong>使命：</strong>通过技术创新和优质服务，为用户创造更多价值，让生活更加美好。</p>
+        </section>
+
+        <section id="team">
+            <h2>团队介绍</h2>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member1.jpg') }}" alt="团队成员1">
+                <h3>张三</h3>
+                <p>CEO</p>
+                <p>张三先生拥有超过15年的电子商务行业经验，曾担任多家知名公司的高管职位。</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member1.jpg') }}" alt="团队成员2">
+                <h3>李四</h3>
+                <p>CTO</p>
+                <p>李四女士在技术领域有着深厚的技术背景，擅长系统架构设计和大数据处理。</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member1.jpg') }}" alt="团队成员3">
+                <h3>王五</h3>
+                <p>CFO</p>
+                <p>王五先生在财务管理方面有丰富的经验，曾成功领导多个大型项目的财务管理工作。</p>
+            </div>
+        </section>
+
+        <section id="contact-us">
+            <h2>联系我们</h2>
+            <p>如果您有任何问题或建议，请通过以下方式联系我们：</p>
+            <ul>
+                <li>电话：400-123-4567（工作时间：9:00 - 18:00）</li>
+                <li>邮箱：contact@example.com</li>
+                <li>地址：北京市朝阳区XX路XX号</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 商城网站. All rights reserved.</p>
+    </footer>
+</body>
+</html>

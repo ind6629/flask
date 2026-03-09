@@ -1,0 +1,165 @@
+<!-- app/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题：线上购物平台一</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="thh-header">
+        <div class="thh-header-justify">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAAFgSURBVGiB7ZrhUYNAEIV3HQvADq4EOwglWELsRCuwBGIFSQdYglZgrAA6eP45HCYR8ha57Diz30wmCeH23heOP+yJGAGwBdAC6LAeXa5ZW/NYglcAmhVDT9ECqEoI7K8QfqBhcykZvhaRlqx5EJGPid82IlKTdR5VdUeeO0++rCz3M3WSoQ71h7FXoBMRdl2+59dv1CKSyDq9qt5dOokVADnpqqjqxXw31whSktuF445rhhiRilQ9ubk+i0xyPg+1bP/9EgoBb0LAmxDwJgS8CQFvQsCbEPAmBLwJAW9CwJsQ8CYEvAkBb0LAmyWP11PJJ9RWSnZoehF5y+8PwreofmA6NBSGxtxAByCNxicsaIwz2dh7oDc671T1OHzJnw/GGtScrMBU13GKL/LYn+dkBV6Nk2/IY3M8G8+fB/Z9Ei/Iex4APBnH7lcNn0NUsHXsl9KgxGaPkUiNctttttY83xUrgKJGKJ4/AAAAAElFTkSuQmCC" alt="" class="thh_menu_icon" data-v-15c9e25d="">
+            <a href="/app" class="thh_menu_route" data-v-15c9e25d="">手机淘好货</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>淘好货</h1>
+        <img src="//img.yimutian.com/crm/60580c952d211f7102aa1d3005670046.png" class="header_img" data-v-0535af0c="">
+        <form action="/search_product" method="POST" class="search-container">
+            <label for="search"></label>
+            <!-- 搜索框 -->
+          <div class="search-box">
+            <input type="text" id="search" name="search" class="search-text" required>
+            <button type="submit" class="search-button">搜索</button>
+          </div>
+          <div class="search-suggest">
+            <a href="#home" data-id="searchSuggest1">苹果</a>
+            <a href="#home" data-id="searchSuggest3">禽畜牧蛋肉</a>
+            <a href="#home" data-id="searchSuggest4">食肉菌</a>
+            <a href="#home" data-id="searchSuggest5">绿化苗木</a>
+            <a href="#home" data-id="searchSuggest6">食品添加剂</a>
+            <a href="#home" data-id="searchSuggest6">酒水饮品</a>
+            <a href="#home" data-id="searchSuggest6">物流运输</a>
+            <a href="#home" data-id="searchSuggest6">病虫害防治</a>
+            <a href="#home" data-id="searchSuggest6">农业营销服务</a>
+          </div>
+        </form>
+    </div>
+    
+    <div class="nav">
+      <div class = "nav-links">
+        <div class = "nav-item">
+            <div class="category">
+                <!-- 分类按钮 -->
+                <p>当季热门类目</p>
+                <button class="category-button" onclick="category('水果')">水果</button>
+                <button class="category-button" onclick="category('蔬菜')">蔬菜</button>
+                <button class="category-button" onclick="category('花椒')">中药材</button>
+                <button class="category-button" onclick="category('种子')">种苗</button>
+                <button class="category-button" onclick="category('农副产品')">农副产品</button>
+                <button class="category-button" onclick="category('绿化苗木')">绿化苗木</button>
+                <button class="category-button" onclick="category('酒水饮品')">酒水饮品</button>
+                <button class="category-button" onclick="category('菌')">食品菌</button>
+            </div>
+        </div>
+        <div class = "nav-photo">
+            <div class="slider">
+                <div class="slides-title">
+                    <p>轻松买卖农产品</p>
+                    <p>免费发布农产品</p>
+                </div>
+                <div class="slides" id="carousel-slides"></div>
+            </div>
+        </div>
+        <div class = "p">
+            <div class="l">
+                <h3>热门资讯</h3>
+                <div>
+                    <a href="{{ url_for('main.content', id='1') }}" class="news">东农729：东北农业大学培育的高产番茄新品种</a>
+                    <a href="{{ url_for('main.content', id='2') }}" class="news">中杂16号：山西温室番茄的高产新星</a>
+                    <a href="{{ url_for('main.content', id='3') }}" class="news">北青610：黄淮海夏玉米区的高产新选择</a>
+                    <a href="{{ url_for('main.content', id='4') }}" class="news">黄淮海夏玉米新贵——央玉118，增产增收的希望之种</a>
+                </div> 
+            </div>
+        </div>
+        <div class = "m">
+            <div>
+                <div class="money">
+                    <canvas id="chart1" width="20%" height="4%"></canvas>
+                    <hr>
+                    <canvas id="chart2" width="20%" height="4%"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- 登录区域 -->
+        <div class="user-container">
+            {% if current_user.is_authenticated %}
+                <img src="{{ current_user.avatar }}" alt="用户头像" class="user-avatar">
+                <span>欢迎，{{ current_user.username }}</span>
+                <div class="user-button">
+                <button onclick="user_profile()" data-url="{{ url_for('auth.user_profile') }}">个人主页</button>
+                <button onclick="logout()" data-url="{{ url_for('auth.logout') }}">登出</button>
+                </div>
+            {% else %}
+            <div class = "login-container">
+                <div>
+                    <h1>您还没有登录</h1>
+                    <p>登录可享，专属优惠，贴心推荐！</p>
+                </div>
+                <button onclick="login()"  class= "login-button " data-url="{{ url_for('auth.login') }}">登录</button>
+                <div>
+                <p>了解农产品价格走势</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('buy.cart') }}">查看购物车</a>
+        <a href="{{ url_for('main.add_product') }}">添加商品</a>
+        <a href="{{ url_for('main.aichat') }}">农小灵大模型</a>
+        {% else %}
+        <a href="{{ url_for('main.about') }}">关于我们</a>
+        <a href="{{ url_for('main.help') }}">帮助</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <h2>热销商品</h2> 
+        <!-- 商品列表 -->
+        <div class="product-list">
+            {% if products %}
+            {% for product in products %}
+            <div class="product-item">
+                <a href="{{ url_for('main.product_detail', id=product.id) }}" class="product-link recomend" data-id="{{ product.id }}" data-category="{{ product.category }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="stock">库存: {{ product.stock }}</p>
+                </a>
+            </div>
+            {% endfor %}
+            <!-- 猜你喜欢列表 -->
+            <div class="recomend-list">
+                <h2>猜你喜欢</h2> 
+                <div class="recomend-list">
+            {% for track in track_data %}
+            <div class="recomend-item">
+                <img src="{{ track.image }}" alt="{{ track.name }}">
+                <h3>{{ track.name }}</h3>
+                <p class="price">${{ track.price }}</p>
+                <p class="stock">库存: {{ track.stock }}</p>
+            </div>
+            {% endfor %}
+            </div>
+            {% else %}
+            <p>没有找到相关产品。</p>
+            {% endif %}
+        </div>
+    </div>
+    
+<script>
+    var userProfileUrl = "{{ url_for('auth.user_profile') }}";
+    var logoutUrl = "{{ url_for('auth.logout') }}";
+    var loginUrl = "{{ url_for('auth.login') }}";
+    var category = "{{ url_for('main.category') }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recomend.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tracking.js') }}"></script>
+</body>
+</html>

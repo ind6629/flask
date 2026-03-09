@@ -1,0 +1,73 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>订单中心</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}"/>
+     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+</head>
+<body>
+  <a href="/" class="arrow-button">返回</a>
+    <div class="order-list-container">
+        <h2 class="order-list-title">我的订单</h2>
+        {% if orders %}
+        <div class="order-list-header">
+          <div class="header-checkbox">
+            <input type="checkbox" id="select-all" class="order-checkbox">
+            <label for="select-all">全选</label>
+          </div>
+          <div class="header-product">商品</div>
+          <div class="header-quantity">数量</div>
+          <div class="header-price">总价</div>
+        </div>
+        
+        <div class="order-items">
+          <!-- 单个订单项示例 -->
+          
+            {% for order in orders %}
+            <div class="order-item" data-order_id="{{order.id}}">
+              <div class="item-checkbox">
+                <input type="checkbox" id="order-1" class="order-checkbox" checked>
+                <label for="order-1"></label>
+              </div>
+              <div class="item-product">
+                <img src="{{order.product.image}}" alt="商品图片" class="product-image">
+                <div class="product-info">
+                  <h3 class="product-name">{{order.product.name}}</h3>
+                  <p class="product-spec">{{order.product.description}}</p>
+                </div>
+              </div>
+              <div class="item-quantity">
+                <span class="quantity-value">{{order.quantity}}</span>
+              </div>
+              <div class="item-price">
+                <span class="price-value">{{order.total_price}}</span>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="order-list-footer">
+          <div class="footer-left">
+            <input type="checkbox" id="footer-select-all" class="order-checkbox">
+            <label for="footer-select-all">全选</label>
+            <button class="delete-selected">删除选中</button>
+          </div>
+          <div class="footer-right">
+            <span class="total-text">已选 <span class="selected-count">1</span> 件商品，合计：</span>
+            <span class="total-price">0</span>
+            <button class="checkout-btn" hidden>去结算</button>
+          </div>
+        </div>
+        {% else %}
+          <h1>当前未有订单</h1>
+        {% endif %}
+      </div>
+</body>
+
+<script>
+  cancelOrderUrl = "{{url_for('order.cancelOrder')}}";
+  settleOrderUrl = "{{url_for('order.settleOrder')}}";
+</script>
+
+<script src="{{ url_for('static', filename='js/order.js') }}"></script>
+</html>

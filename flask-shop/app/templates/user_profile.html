@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息 - 淘好货</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile.css') }}"/>
+</head>
+<body>
+    <!--<div class="header">
+        <h1>用户信息</h1>
+    </div>
+    <div class="profile-container">
+        <h2>欢迎您，{{ user.username }}</h2>
+        <form action="{{ url_for('auth.update_profile') }}" method="post" enctype="multipart/form-data">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" value="{{ user.username }}" required><br><br>
+
+            <label for="email">邮箱:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required><br><br>
+
+            <label for="avatar">头像:</label>
+            <input type="file" id="avatar" name="avatar"><br><br>
+
+            <button type="submit">保存更改</button>
+        </form>
+        <br>
+        <button onclick="logout()">退出登录</button>
+    </div>-->
+
+    <div class="mainBox">
+        <h1>欢迎您，{{ user.username }}</h1>
+        {% if user.avatar and user.avatar != "null" %}
+        <img src="{{user.avatar}}" class="avatar">
+        {% else %}
+        <img src="{{ url_for('static', filename='images/defaultAvatar.png') }}" class="avatar">
+        {% endif %}
+        <form action="{{ url_for('auth.update_profile') }}" method="post" enctype="multipart/form-data" class="profile-form">
+            <div class="form-card">
+                <h2 class="form-title">编辑个人资料</h2>
+                <div class="contentBox">
+                    <div class="form-group">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" id="username" name="username" value="{{ user.username }}" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">邮箱</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" class="form-input" required>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="avatar" class="form-label">头像</label>
+                    <div class="file-upload">
+                        <label for="avatar" class="file-upload-label">
+                            <span class="file-upload-text">选择文件</span>
+                            <span class="file-upload-name" id="file-name">未选择文件</span>
+                        </label>
+                        <input type="file" id="avatar" name="avatar" class="file-upload-input">
+                    </div>
+                </div>
+                <button type="submit" class="refine-btn" id="submit">保存更改</button>
+            </div>
+        </form>
+        <div class="bottomBox">
+            <button onclick="returnHome()" class="refine-btn" id="backHome">返回主页</button>
+            <button onclick="logout()" class="refine-btn" id="logout">退出登录</button>
+        <div>
+    </div>
+</body>
+
+<script>
+    var logoutUrl = "{{ url_for('auth.logout') }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user_profile.js') }}"></script>
+</html>

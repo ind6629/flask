@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>搜索数据分析</title>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/table_clickData.css') }}">
+    </head>
+    <bdoy>
+        <div class='showBox'></div>
+    </body>
+    <script> 
+        const records = {{ data | tojson | safe }};
+    </script>
+    <script  src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+    <script  src="{{ url_for('static', filename='js/searchDataAnalysis.js') }}"></script>
+</html>

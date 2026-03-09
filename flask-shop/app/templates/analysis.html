@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis.css') }}"/>
+    </head>
+    <body>
+        <div class="tab-container">
+            <!-- 标签导航 -->
+            <h2 style="margin-left: 15px;">数据分析</h2> 
+            <div class="tab-nav">
+              <button id='defaultBtn' class="tab-btn active" data-tab="tab1" data-htmlSrc='clickData'>点击数据</button>
+              <button class="tab-btn" data-tab="tab2" data-htmlSrc='searchData'>搜索数据</button>
+              <button class="tab-btn" data-tab="tab3" data-htmlSrc='cartData'>购物车数据</button>
+              <button class="tab-btn" data-tab="tab4" data-htmlSrc='orderData'>订单数据</button>
+              <button class="tab-btn" data-tab="tab5" data-htmlSrc='otherData'>其它数据</button>
+            </div>
+            <!-- 内容区域 -->
+            <div class='contentBox'></div>
+        </div>
+    </body>
+    <script  src="{{ url_for('static', filename='js/echarts.js') }}"></script> 
+    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script> 
+    <!--<script type="module" src="{{ url_for('static', filename='js/clickDataAnalysis.js') }}"></script>-->
+    
+
+</html>
+
